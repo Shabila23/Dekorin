@@ -35,6 +35,7 @@ class UserApiController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'no_hp' => $request->no_hp,
+                'saldo' => 0, // Inisialisasi saldo dengan 0
             ]);
 
             // Respon sukses
