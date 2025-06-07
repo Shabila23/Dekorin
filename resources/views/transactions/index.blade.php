@@ -78,7 +78,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="text-center">Tidak ada data transaksi.</td>
+                <td colspan="6" class="text-center text-danger">Tidak ada data transaksi.</td>
             </tr>
             @endforelse
         </tbody>
