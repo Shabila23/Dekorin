@@ -41,6 +41,7 @@
                 <th>ID</th>
                 <th>Nama</th>
                 <th>Email</th>
+                <th>No_Hp</th>
                 <th>Saldo</th>
                 <th>Created at</th>
                 <th>Aksi</th>
@@ -52,6 +53,7 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->no_hp }}</td>
                 <td><span class="coin">$</span> {{ number_format($user->saldo, 0, ',', '.') }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>
