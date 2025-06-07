@@ -27,6 +27,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="no_hp" class="form-label">No Hp</label>
+            <input type="number" class="form-control" id="no_hp" name="ho_hp" value="{{ old('no_hp') }}">
+        </div>
+
+        <div class="mb-3">
             <label for="saldo" class="form-label">Saldo</label>
             <input type="number" class="form-control" id="saldo" name="saldo" value="{{ old('saldo', 0) }}" min="0" required>
         </div>
