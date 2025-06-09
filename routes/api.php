@@ -16,6 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/books/category/{category_name}', [UserApiController::class, 'getBooksByCategory']);
     Route::get('/books/purchased/{user_id}', [UserApiController::class, 'getPurchasedBooksByUser']);
     Route::get('/transactions/user/{user_id}', [UserApiController::class, 'getTransactionsByUser']);
+    Route::get('/transactions/check/{user_id}/{book_id}', [UserApiController::class, 'cekIfBookHasBuy']);
     Route::post('/transactions/payment', [UserApiController::class, 'purchaseBook']);
 
     Route::get('/categories', [UserApiController::class, 'getCategories']);

@@ -319,6 +319,28 @@ class UserApiController extends Controller
         ]);
     }
 
+    public function cekIfBookHasBuy(int $user_id, int $book_id): JsonResponse
+    {
+        // Mengambil semua transaksi yang terkait dengan user_id
+        $transactions = DB::table('transactions')
+            ->where('user_id', $user_id)
+            ->where('book_id', $book_id)
+            ->where('status', 1) // Pastikan status transaksi adalah 1 (berhasil)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        if ($transactions->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User dengan ID ' . $user_id . ' belum memiliki transaksi.'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $transactions
+        ]);
+    }
 
     public function getCategories(): JsonResponse
     {
