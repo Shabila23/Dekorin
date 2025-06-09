@@ -62,7 +62,7 @@
                             default => 'badge bg-secondary',
                         };
                     @endphp
-                    <span class="{{ $statusClass }}">{{ $transaction->status_text }}</span>
+                    <span class="{{ $statusClass }}">{{ $transaction->status }}</span>
                 </td>
                 <td><span class="coin">$</span> {{ number_format($transaction->biaya, 0, ',', '.') }}</td>
                 <td><small><i>{{ $transaction->created_at->format('d-m-Y H:i:s') }}</i></small></td>
