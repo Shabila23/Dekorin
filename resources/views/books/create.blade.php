@@ -28,6 +28,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi</label>
+            <textarea name="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
+        </div>
+
+        <div class="mb-3">
             <label for="category_id" class="form-label">Kategori</label>
             <select name="category_id" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
