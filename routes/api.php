@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserApiController;
 
@@ -18,6 +19,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/transactions/payment', [UserApiController::class, 'purchaseBook']);
 
     Route::get('/categories', [UserApiController::class, 'getCategories']);
+
+    Route::get('/check-token', function (Request $request) {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Token valid',
+            'user' => $request->user()
+        ]);
+    });
+
+
 });
-
-
