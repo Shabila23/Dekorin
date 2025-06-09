@@ -32,7 +32,7 @@ class Transaction extends Model
     // Accessor untuk status dalam bentuk teks
     public function getStatusTextAttribute()
     {
-        return match ($this->status) {
+        return match ((int) $this->status) {
             0 => 'Pending',
             1 => 'Sukses',
             2 => 'Gagal',
