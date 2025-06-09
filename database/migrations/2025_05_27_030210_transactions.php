@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
+            $table->foreignId('book_id')->nullable(); // Definisi kolom dan nullable
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade'); // Foreign key
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('keterangan');
             $table->integer('status');
