@@ -55,7 +55,7 @@
                 <td>{{ $transaction->keterangan }}</td>
                 <td>
                     @php
-                        $statusClass = match ($transaction->status) {
+                        $statusClass = match ((int) $transaction->status) {
                             0 => 'badge bg-warning',
                             1 => 'badge bg-success',
                             2 => 'badge bg-danger',
