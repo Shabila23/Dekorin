@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('pengarang');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price', 10, 2);
             $table->float('rating')->nullable();
