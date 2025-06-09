@@ -13,6 +13,7 @@ class Book extends Model
         'pengarang',
         'category_id',
         'image',
+        'description',
         'price',
         'rating',
         'tgl_terbit',
