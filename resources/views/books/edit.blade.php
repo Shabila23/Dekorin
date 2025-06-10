@@ -30,7 +30,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Deskripsi</label>
-            <textarea name="description" class="form-control" rows="4">{{ old('description') }}</textarea>
+            <textarea name="description" class="form-control" rows="4">{{ old('description', $book->description) }}</textarea>
         </div>
 
         <div class="mb-3">

@@ -137,7 +137,7 @@ class UserApiController extends Controller
 
             return response()->json([
                 'success'=> true,
-                'message' => 'Permintaan top-up berhasil dibuat',
+                'message' => 'Permintaan top-up berhasil dibuat, silahkan tunggu sampai admin memprosesnya.',
                 'transaction' => $transaction
             ], 201);
         } catch (\Exception $e) {
