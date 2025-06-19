@@ -5,23 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title') Web</title>
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+
     <style>
-        /* Sidebar full height and sticky */
         #sidebarMenu {
             height: 100vh;
             overflow-y: auto;
             background-color: #f8f9fa;
-            /* bg-light */
             border-right: 1px solid #dee2e6;
             position: sticky;
             top: 0;
+            width: 250px;
+            transition: transform 0.3s ease;
+            z-index: 1000;
         }
 
-        /* Custom nav styles */
         .custom-nav .nav-link {
             color: #495057;
             font-weight: 500;
@@ -54,25 +57,11 @@
             color: inherit;
         }
 
-        /* Sidebar default: terlihat */
-        #sidebarMenu {
-            width: 250px;
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        /* Saat collapse: geser keluar dari layar */
         body.collapsed-sidebar #sidebarMenu {
             transform: translateX(-100%);
             position: absolute;
         }
 
-        /* Konten utama tetap penuh, tidak bergeser */
-        main {
-            transition: margin-left 0.3s ease;
-        }
-
-        /* (Opsional) Ganti icon arah chevron saat collapse */
         body.collapsed-sidebar #sidebarIcon {
             transform: rotate(180deg);
         }
@@ -87,11 +76,15 @@
             border-radius: 8px;
         }
 
-        /* Rotate icon saat sidebar tertutup */
         body.collapsed-sidebar #toggleSidebarBtn span {
             transform: rotate(180deg);
         }
+
+        main {
+            transition: margin-left 0.3s ease;
+        }
     </style>
+
     @stack('css')
 </head>
 
@@ -113,49 +106,60 @@
         </div>
     </header>
 
-
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-
                 <div class="position-sticky pt-5 mt-2">
                     <ul class="nav flex-column custom-nav">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page" href="/">
+                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">
                                 <span data-feather="home"></span>
                                 Dashboard
                             </a>
                         </li>
+                        @if (Route::has('users.index'))
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                                 <span data-feather="file"></span>
                                 Users
                             </a>
                         </li>
+                        @endif
+                        @if (Route::has('categories.index'))
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('categories*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                                 <span data-feather="list"></span>
                                 Category
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->is('books*') ? 'active' : '' }}" href="{{ route('books.index') }}">
-                                <span data-feather="book"></span>
-                                Books
-                            </a>
-                        </li>
+                    
+           @if (Route::has('dekorins.index'))
+<li class="nav-item">
+    <a class="nav-link {{ request()->is('dekorins*') ? 'active' : '' }}" href="{{ route('dekorins.index') }}">
+        <span data-feather="grid"></span>
+        Dekorin
+    </a>
+</li>
+@endif
+
+
+                        @endif
+                        @if (Route::has('transactions.index'))
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('transactions*') ? 'active' : '' }}" href="{{ route('transactions.index') }}">
                                 <span data-feather="shopping-cart"></span>
                                 Transactions
                             </a>
                         </li>
+                        @endif
+                        @if (Route::has('transactions.approval'))
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('saldo*') ? 'active' : '' }}" href="{{ route('transactions.approval') }}">
                                 <span data-feather="dollar-sign"></span>
                                 Top Up Requests
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </nav>
@@ -164,43 +168,32 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">@yield('title')</h1>
                 </div>
-                <!-- Konten utama di sini -->
-                @yield('content')
 
+                @yield('content')
             </main>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             feather.replace();
 
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebarMenu');
-
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('show'); // Bootstrap collapse works by toggling 'show'
+            sidebarToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
             });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('toggleSidebarBtn');
-            const sidebarIcon = document.getElementById('sidebarIcon');
 
-            toggleBtn.addEventListener('click', function() {
+            const toggleBtn = document.getElementById('toggleSidebarBtn');
+            toggleBtn.addEventListener('click', function () {
                 document.body.classList.toggle('collapsed-sidebar');
             });
         });
     </script>
 
-
-
     @stack('js')
-
 </body>
-
 </html>
