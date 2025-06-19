@@ -18,9 +18,7 @@ return new class extends Migration
 
 public function down()
 {
-    Schema::table('dekorins', function (Blueprint $table) {
-        $table->dropColumn('tema');
-    });
+    //
 }
 
 };

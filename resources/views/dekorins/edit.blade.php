@@ -19,7 +19,7 @@
             <select name="category_id" class="form-select" required>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ $dekorin->category_id == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
+                        {{ $category->category }}
                     </option>
                 @endforeach
             </select>
