@@ -6,29 +6,34 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionApprovalController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Resource routes
 Route::resource('users', UserController::class);
-Route::resource('dekorins', DekorinController::class); // Ganti dari books ke dekorins
+Route::resource('dekorins', DekorinController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('transactions', TransactionController::class)->only(['index', 'edit', 'update', 'destroy']);
 
-Route::resource('transactions', TransactionController::class)->only([
-    'index',
-    'edit',
-    'update',
-    'destroy'
-]);
-
-// Custom routes untuk approval saldo
 Route::get('/saldo/approval', [TransactionApprovalController::class, 'index'])->name('transactions.approval');
 Route::patch('/saldo/{id}/approve', [TransactionApprovalController::class, 'approve'])->name('transactions.approve');
 Route::patch('/saldo/{id}/reject', [TransactionApprovalController::class, 'reject'])->name('transactions.reject');
-Route::get('/dekorins', [DekorinController::class, 'index'])->name('dekorins.index');
 
+// Admin routes
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-//ini adalah kode perubahan
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('welcome', ['title' => 'Admin Dashboard']);
+        })->name('admin.dashboard');
 
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+    });
+});
